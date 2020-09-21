@@ -14,7 +14,7 @@ const getPoemsData = (req, res) => {
 const addPoemData = (req, res) => {
   const { poemsData, db } = req.app.locals;
   poemsData.unshift({
-    id: 1,
+    id: poemsData.length,
     user: {
       name: 'Rahit',
       url:
@@ -24,7 +24,7 @@ const addPoemData = (req, res) => {
     likes: [],
     comments: [],
   });
-  db.setPoemsData(poemsData).then((replay) => res.end(replay));
+  db.setPoemsData(poemsData).then(() => res.end());
 };
 
 module.exports = { attachPoemsData, getPoemsData, addPoemData };
