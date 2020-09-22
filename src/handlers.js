@@ -36,16 +36,14 @@ const processGithubOauth = function (req, res) {
   });
 };
 
-const getUser = function (req, res) {
+const getUserId = function (req, res) {
   const { sId } = req.cookies;
-  const { db, sessions } = req.app.locals;
+  const { sessions } = req.app.locals;
   const id = sessions.getSession(sId);
   if (id) {
-    return db.getPoet(id).then((user) => {
-      res.json({ user: user });
-    });
+    return res.json({ userId: id });
   }
-  res.json({ user: null });
+  res.json({ userId: null });
 };
 
-module.exports = { processGithubOauth, getUser };
+module.exports = { processGithubOauth, getUserId };

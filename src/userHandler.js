@@ -1,3 +1,13 @@
+const isLoggedIn = (req, res, next) => {
+  const { sessions } = req.app.locals;
+  const { sId } = req.cookies;
+  if (sessions.getSession(sId)) {
+    return next();
+  }
+  console.log('redirecting');
+  res.redirect('http://localhost:3000');
+};
+
 const attachPoemsData = (req, res, next) => {
   req.app.locals.db
     .getPoemsData()
@@ -12,14 +22,10 @@ const getPoemsData = (req, res) => {
 };
 
 const addPoemData = (req, res) => {
+  console.log(req.body);
   const { poemsData, db } = req.app.locals;
   poemsData.unshift({
     id: poemsData.length,
-    user: {
-      name: 'Rahit',
-      url:
-        'https://avatars3.githubusercontent.com/u/58026094?s=400&u=0a5dfc215ccfb7149d4c1486bda61880f68a9a72&v=4',
-    },
     ...req.body,
     likes: [],
     comments: [],
@@ -27,4 +33,18 @@ const addPoemData = (req, res) => {
   db.setPoemsData(poemsData).then(() => res.end());
 };
 
-module.exports = { attachPoemsData, getPoemsData, addPoemData };
+const getUserDetails = function (req, res) {
+  const { db } = req.app.locals;
+  const { userId } = req.params;
+  db.getUser(userId).then((user) => {
+    res.json(user);
+  });
+};
+
+module.exports = {
+  isLoggedIn,
+  attachPoemsData,
+  getPoemsData,
+  addPoemData,
+  getUserDetails,
+};

@@ -5,7 +5,7 @@ const Database = require('./database');
 const { getRedisClient } = require('./redisClient');
 const { userRouter } = require('./userRouter');
 
-const { processGithubOauth, getUser } = require('./handlers');
+const { processGithubOauth, getUserId } = require('./handlers');
 
 const app = express();
 const redisClient = getRedisClient();
@@ -18,13 +18,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use((req, res, next) => {
-  console.log(req.url, req.cookies);
+  console.log(req.url);
   next();
 });
 
 app.use('/api/user', userRouter);
 
-app.get('/api/getUser', getUser);
+app.get('/api/getUserId', getUserId);
 
 app.get('/user', processGithubOauth);
 

@@ -27,7 +27,7 @@ class Database {
 
   addPoet(details, id) {
     return new Promise((resolve, reject) => {
-      this.db.hset('poets', id, JSON.stringify(details), (err) => {
+      this.db.hset('users', id, JSON.stringify(details), (err) => {
         if (err) {
           return reject(err);
         }
@@ -36,9 +36,9 @@ class Database {
     });
   }
 
-  getPoet(id) {
+  getUser(id) {
     return new Promise((resolve, reject) => {
-      this.db.hget('poets', id, (err, res) => {
+      this.db.hget('users', id, (err, res) => {
         if (err) {
           return reject(err);
         }
