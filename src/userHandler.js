@@ -22,7 +22,6 @@ const getPoemsData = (req, res) => {
 };
 
 const addPoemData = (req, res) => {
-  console.log(req.body);
   const { poemsData, db } = req.app.locals;
   poemsData.unshift({
     id: poemsData.length,

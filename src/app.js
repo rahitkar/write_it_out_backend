@@ -1,17 +1,11 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const { Sessions } = require('./sessions');
-const Database = require('./database');
-const { getRedisClient } = require('./redisClient');
 const { userRouter } = require('./userRouter');
 
 const { processGithubOauth, getUserId } = require('./handlers');
 
 const app = express();
-const redisClient = getRedisClient();
-const db = new Database(redisClient);
-app.locals.db = db;
-app.locals.sessions = new Sessions();
+
 
 app.use(cookieParser());
 app.use(express.json());

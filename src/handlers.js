@@ -41,9 +41,9 @@ const getUserId = function (req, res) {
   const { sessions } = req.app.locals;
   const id = sessions.getSession(sId);
   if (id) {
-    return res.json({ userId: id });
+    return res.json({ loggedInUserId: id });
   }
-  res.json({ userId: null });
+  res.json({ loggedInUserId: null });
 };
 
 module.exports = { processGithubOauth, getUserId };
