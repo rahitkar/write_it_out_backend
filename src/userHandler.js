@@ -23,15 +23,8 @@ const getPoemsData = (req, res) => {
 };
 
 const addPoemData = (req, res) => {
-  const { poemsData, db } = req.app.locals;
-  poemsData.unshift({
-    id: poemsData.length,
-    ...req.body,
-    userId: req.userId,
-    likes: [],
-    comments: [],
-  });
-  db.setPoemsData(poemsData).then(() => res.end());
+  const { db } = req.app.locals;
+  db.addPoemData(req.body, req.userId).then(() => res.end());
 };
 
 const getUserDetails = (req, res) => {
@@ -57,9 +50,8 @@ const updateLikes = (req, res) => {
 
 const getLikes = (req, res) => {
   const { postId } = req.params;
-  const { poemsData } = req.app.locals;
-  const [post] = poemsData.filter((poemData) => poemData.id === +postId);
-  res.json(post.likes);
+  const { db } = req.app.locals;
+  db.getLikes(postId).then((likes) => res.json(likes));
 };
 
 module.exports = {

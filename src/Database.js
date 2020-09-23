@@ -41,6 +41,22 @@ class Database {
     });
   }
 
+  addPoemData(newPoemDetails, userId) {
+    return new Promise((resolve, rej) => {
+      this.getPoemsData().then((poemsData) => {
+        const poemsDataClone = poemsData.slice();
+        poemsDataClone.unshift({
+          id: poemsDataClone.length,
+          ...newPoemDetails,
+          userId: userId,
+          likes: [],
+          comments: [],
+        });
+        this.setPoemsData(poemsDataClone).then(resolve);
+      });
+    });
+  }
+
   addPoet(details, id) {
     return new Promise((resolve, reject) => {
       this.db.hset('users', id, JSON.stringify(details), (err) => {
@@ -74,12 +90,22 @@ class Database {
       });
     });
   }
-  
+
   updateLikes(postId, userId) {
     return new Promise((resolve, rej) => {
       this.getPoemsData().then((poemsData) => {
         const updatedPoemsData = updatePostLikes(poemsData, postId, userId);
         this.setPoemsData(updatedPoemsData).then(resolve);
+      });
+    });
+  }
+
+  getLikes(postId) {
+    return new Promise((resolve, reject) => {
+      this.getPoemsData().then((poemsData) => {
+        const data = poemsData || [];
+        const [post] = data.filter((poemData) => poemData.id === +postId);
+        resolve(post.likes);
       });
     });
   }
