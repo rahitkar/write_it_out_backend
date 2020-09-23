@@ -40,6 +40,30 @@ describe('any request of /api/user/ with session id present', () => {
       });
     };
 
+    db.getUserPoems = (userId) => {
+      return new Promise((resolve, rej) => {
+        if (userId) {
+          resolve({ poems: [] });
+        }
+      });
+    };
+
+    db.updateLikes = (postId) => {
+      return new Promise((resolve, rej) => {
+        if (postId) {
+          resolve(true);
+        }
+      });
+    };
+
+    db.getLikes = (postId) => {
+      return new Promise((resolve, rej) => {
+        if (postId) {
+          resolve({ likes: [] });
+        }
+      });
+    };
+
     const sessions = {};
     sessions.createSession = () => '123';
     sessions.getSession = () => '12345';
@@ -67,7 +91,34 @@ describe('any request of /api/user/ with session id present', () => {
 
   describe('/api/user/getUserDetails/:userId', () => {
     it('should get userDetails for given userId', (done) => {
-      request(app).get('/api/user/getUserDetails/1').expect(200, done);
+      request(app)
+        .get('/api/user/getUserDetails/1')
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+  });
+
+  describe('/getUserPoems/:userId', () => {
+    it("should get user's poems for given userId", (done) => {
+      request(app)
+        .get('/api/user/getUserPoems/1')
+        .expect('Content-Type', /json/)
+        .expect(200, done);
+    });
+  });
+
+  describe('/updateLike/:postId', () => {
+    it('should update likes of the poem having given userId', (done) => {
+      request(app).get('/api/user/updateLike/1').expect(200, done);
+    });
+  });
+
+  describe('/getLikes/:postId', () => {
+    it('should get likes of the poem having given userId', (done) => {
+      request(app)
+        .get('/api/user/getLikes/1')
+        .expect('Content-Type', /json/)
+        .expect(200, done);
     });
   });
 });
