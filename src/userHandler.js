@@ -9,17 +9,10 @@ const isLoggedIn = (req, res, next) => {
   res.redirect('http://localhost:3000');
 };
 
-const attachPoemsData = (req, res, next) => {
-  req.app.locals.db
-    .getPoemsData()
-    .then((poemsData) => {
-      req.app.locals.poemsData = poemsData || [];
-    })
-    .then(next);
-};
-
 const getPoemsData = (req, res) => {
-  res.json(JSON.stringify(req.app.locals.poemsData));
+  req.app.locals.db.getPoemsData().then((poemsData) => {
+    res.json(poemsData || []);
+  });
 };
 
 const addPoemData = (req, res) => {
@@ -56,7 +49,6 @@ const getLikes = (req, res) => {
 
 module.exports = {
   isLoggedIn,
-  attachPoemsData,
   getPoemsData,
   addPoemData,
   getUserDetails,
