@@ -44,36 +44,15 @@ const getUserDetails = (req, res) => {
 
 const getUserPoems = (req, res) => {
   const { userId } = req.params;
-  const { poemsData } = req.app.locals;
-  const filteredPoems = poemsData.filter((pData) => {
-    return pData.userId === +userId;
-  });
-  res.json(filteredPoems);
-};
-
-const updatePostLikes = (poemsData, postId, userId) => {
-  const poemsDataClone = poemsData.slice();
-  poemsDataClone.forEach((poemData) => {
-    if (poemData.id === +postId) {
-      if (poemData.likes.includes(userId)) {
-        poemData.likes = poemData.likes.filter(
-          (userWhoLiked) => userWhoLiked !== userId
-        );
-        return;
-      }
-      poemData.likes.unshift(userId);
-    }
-  });
-  return poemsDataClone;
+  const { db } = req.app.locals;
+  db.getUserPoems(userId).then((filteredPoems) => res.json(filteredPoems));
 };
 
 const updateLikes = (req, res) => {
   const { postId } = req.params;
-  const { db, poemsData } = req.app.locals;
+  const { db } = req.app.locals;
   const { userId } = req;
-  const updatedPoemsData = updatePostLikes(poemsData, postId, userId);
-  req.app.locals.poemsData = updatedPoemsData;
-  db.setPoemsData(updatedPoemsData).then(() => res.end());
+  db.updateLikes(postId, userId).then(() => res.end());
 };
 
 const getLikes = (req, res) => {
