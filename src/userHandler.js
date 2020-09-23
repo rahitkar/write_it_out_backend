@@ -51,6 +51,38 @@ const getUserPoems = (req, res) => {
   res.json(filteredPoems);
 };
 
+const updatePostLikes = (poemsData, postId, userId) => {
+  const poemsDataClone = poemsData.slice();
+  poemsDataClone.forEach((poemData) => {
+    if (poemData.id === +postId) {
+      if (poemData.likes.includes(userId)) {
+        poemData.likes = poemData.likes.filter(
+          (userWhoLiked) => userWhoLiked !== userId
+        );
+        return;
+      }
+      poemData.likes.unshift(userId);
+    }
+  });
+  return poemsDataClone;
+};
+
+const updateLikes = (req, res) => {
+  const { postId } = req.params;
+  const { db, poemsData } = req.app.locals;
+  const { userId } = req;
+  const updatedPoemsData = updatePostLikes(poemsData, postId, userId);
+  req.app.locals.poemsData = updatedPoemsData;
+  db.setPoemsData(updatedPoemsData).then(() => res.end());
+};
+
+const getLikes = (req, res) => {
+  const { postId } = req.params;
+  const { poemsData } = req.app.locals;
+  const [post] = poemsData.filter((poemData) => poemData.id === +postId);
+  res.json(post.likes);
+};
+
 module.exports = {
   isLoggedIn,
   attachPoemsData,
@@ -58,4 +90,6 @@ module.exports = {
   addPoemData,
   getUserDetails,
   getUserPoems,
+  updateLikes,
+  getLikes,
 };

@@ -6,6 +6,8 @@ const {
   addPoemData,
   getUserDetails,
   getUserPoems,
+  updateLikes,
+  getLikes,
 } = require('./userHandler');
 
 const userRouter = express.Router();
@@ -20,5 +22,7 @@ userRouter.get('/fetchPoemsData', getPoemsData);
 userRouter.post('/addPoemData', addPoemData);
 userRouter.get('/getUserDetails/:userId', getUserDetails);
 userRouter.get('/getUserPoems/:userId', getUserPoems);
+userRouter.get('/updateLike/:postId', updateLikes);
+userRouter.get('/getLikes/:postId', getLikes);
 
 module.exports = { userRouter };
