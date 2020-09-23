@@ -45,6 +45,12 @@ describe('/api/user/addPoemData', () => {
       });
     };
 
+    db.addPoemData = () => {
+      return new Promise((resolve, rej) => {
+        resolve(true);
+      });
+    };
+
     const sessions = {};
     sessions.createSession = () => '123';
     sessions.getSession = () => '12345';
@@ -79,8 +85,6 @@ describe('/api/user/getUserDetails/:userId', () => {
     sessions.getSession = () => '12345';
     app.locals.sessions = sessions;
     app.locals.db = db;
-    request(app)
-      .get('/api/user/getUserDetails/1')
-      .expect(200, done);
+    request(app).get('/api/user/getUserDetails/1').expect(200, done);
   });
 });
