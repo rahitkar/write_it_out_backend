@@ -44,7 +44,8 @@ class Database {
   addPoemData(newPoemDetails, userId) {
     return new Promise((resolve, rej) => {
       this.getPoemsData().then((poemsData) => {
-        const poemsDataClone = poemsData.slice();
+        const data = poemsData || [];
+        const poemsDataClone = data.slice();
         poemsDataClone.unshift({
           id: poemsDataClone.length,
           ...newPoemDetails,
