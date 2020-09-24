@@ -1,23 +1,27 @@
-const isLoggedIn = (req, res, next) => {
+const Posts = require('./models/Posts');
+
+const isLoggedIn = async (req, res, next) => {
   const { sessions } = req.app.locals;
   const { sId } = req.cookies;
   const userId = sessions.getSession(sId);
   if (userId) {
     req.userId = userId;
+    const posts = await req.app.locals.db.getPoemsData();
+    req.app.locals.posts = new Posts(posts || []);
     return next();
   }
   res.redirect('http://localhost:3000');
 };
 
 const getPoemsData = (req, res) => {
-  req.app.locals.db.getPoemsData().then((poemsData) => {
-    res.json(poemsData || []);
-  });
+  const { posts } = req.app.locals.posts;
+  res.json(posts);
 };
 
 const addPoemData = (req, res) => {
-  const { db } = req.app.locals;
-  db.addPoemData(req.body, req.userId).then(() => res.end());
+  const { db, posts } = req.app.locals;
+  const updatedPosts = posts.addPost(req.body, req.userId);
+  db.setPoemsData(updatedPosts).then(() => res.end());
 };
 
 const getUserDetails = (req, res) => {
@@ -47,6 +51,14 @@ const getLikes = (req, res) => {
   db.getLikes(postId).then((likes) => res.json(likes));
 };
 
+const addComment = (req, res) => {
+  const { comment } = req.body;
+  const { postId } = req.params;
+  const { db } = req.app.locals;
+  const { userId } = req;
+  db.addComment(comment, postId, userId).then((comments) => res.json(comments));
+};
+
 module.exports = {
   isLoggedIn,
   getPoemsData,
@@ -55,4 +67,5 @@ module.exports = {
   getUserPoems,
   updateLikes,
   getLikes,
+  addComment,
 };

@@ -14,6 +14,16 @@ const updatePostLikes = (poemsData, postId, userId) => {
   return poemsDataClone;
 };
 
+const updatePostComments = (poemsData, postId, userId, comment) => {
+  const poemsDataClone = poemsData.slice();
+  poemsDataClone.forEach((poemData) => {
+    if (poemData.id === +postId) {
+      poemData.comments.unshift({ userId, comment });
+    }
+  });
+  return poemsDataClone;
+};
+
 class Database {
   constructor(db) {
     this.db = db;
@@ -37,23 +47,6 @@ class Database {
           return reject(err);
         }
         return resolve(res);
-      });
-    });
-  }
-
-  addPoemData(newPoemDetails, userId) {
-    return new Promise((resolve, rej) => {
-      this.getPoemsData().then((poemsData) => {
-        const data = poemsData || [];
-        const poemsDataClone = data.slice();
-        poemsDataClone.unshift({
-          id: poemsDataClone.length,
-          ...newPoemDetails,
-          userId: userId,
-          likes: [],
-          comments: [],
-        });
-        this.setPoemsData(poemsDataClone).then(resolve);
       });
     });
   }
@@ -107,6 +100,20 @@ class Database {
         const data = poemsData || [];
         const [post] = data.filter((poemData) => poemData.id === +postId);
         resolve(post.likes);
+      });
+    });
+  }
+
+  addComment(comment, postId, userId) {
+    return new Promise((resolve, rej) => {
+      this.getPoemsData().then((poemsData) => {
+        const updatedPoemsData = updatePostComments(
+          poemsData,
+          postId,
+          userId,
+          comment
+        );
+        this.setPoemsData(updatedPoemsData).then(resolve);
       });
     });
   }

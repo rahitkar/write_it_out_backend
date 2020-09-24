@@ -7,6 +7,7 @@ const {
   getUserPoems,
   updateLikes,
   getLikes,
+  addComment,
 } = require('./userHandler');
 
 const userRouter = express.Router();
@@ -22,5 +23,6 @@ userRouter.get('/getUserDetails/:userId', getUserDetails);
 userRouter.get('/getUserPoems/:userId', getUserPoems);
 userRouter.get('/updateLike/:postId', updateLikes);
 userRouter.get('/getLikes/:postId', getLikes);
+userRouter.get('/addComment/:postId', addComment);
 
 module.exports = { userRouter };
