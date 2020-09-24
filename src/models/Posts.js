@@ -16,6 +16,8 @@ class Posts {
     this.posts = postsClone;
     return this.posts;
   }
+
+  getUserPosts
 }
 
 module.exports = Posts;

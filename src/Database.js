@@ -117,6 +117,16 @@ class Database {
       });
     });
   }
+
+  getComments(postId) {
+    return new Promise((resolve, reject) => {
+      this.getPoemsData().then((poemsData) => {
+        const data = poemsData || [];
+        const [post] = data.filter((poemData) => poemData.id === +postId);
+        resolve(post.comments);
+      });
+    });
+  }
 }
 
 module.exports = Database;

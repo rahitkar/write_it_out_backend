@@ -53,10 +53,17 @@ const getLikes = (req, res) => {
 
 const addComment = (req, res) => {
   const { comment } = req.body;
+  console.log(comment);
   const { postId } = req.params;
   const { db } = req.app.locals;
   const { userId } = req;
   db.addComment(comment, postId, userId).then((comments) => res.json(comments));
+};
+
+const getComments = (req, res) => {
+  const { postId } = req.params;
+  const { db } = req.app.locals;
+  db.getComments(postId).then((comments) => res.json(comments));
 };
 
 module.exports = {
@@ -68,4 +75,5 @@ module.exports = {
   updateLikes,
   getLikes,
   addComment,
+  getComments,
 };
