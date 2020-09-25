@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { CLIENT_ID, CLIENT_SECRET } = require('../appDetails');
+const { CLIENT_ID, CLIENT_SECRET } = process.env;
 
 const generateUserInfoConfig = function (accessToken) {
   return {
