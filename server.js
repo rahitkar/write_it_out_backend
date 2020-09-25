@@ -9,4 +9,5 @@ const db = new Database(redisClient);
 app.locals.db = db;
 app.locals.sessions = new Sessions();
 
-app.listen(8000, () => console.log('listening at port 8000'));
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => console.log('listening at port 8000'));
