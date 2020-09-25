@@ -9,6 +9,7 @@ const {
   getLikes,
   addComment,
   getComments,
+  logout,
 } = require('./userHandler');
 
 const userRouter = express.Router();
@@ -26,5 +27,6 @@ userRouter.get('/updateLike/:postId', updateLikes);
 userRouter.get('/getLikes/:postId', getLikes);
 userRouter.post('/addComment/:postId', addComment);
 userRouter.get('/getComments/:postId', getComments);
+userRouter.get('/logout', logout);
 
 module.exports = { userRouter };

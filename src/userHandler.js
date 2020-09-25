@@ -10,7 +10,7 @@ const isLoggedIn = async (req, res, next) => {
     req.app.locals.posts = new Posts(posts || []);
     return next();
   }
-  res.redirect('http://localhost:3000');
+  res.redirect(process.env.ReactServer || '/');
 };
 
 const getPoemsData = (req, res) => {
@@ -53,7 +53,6 @@ const getLikes = (req, res) => {
 
 const addComment = (req, res) => {
   const { comment } = req.body;
-  console.log(comment);
   const { postId } = req.params;
   const { db } = req.app.locals;
   const { userId } = req;
@@ -66,6 +65,14 @@ const getComments = (req, res) => {
   db.getComments(postId).then((comments) => res.json(comments));
 };
 
+const logout = (req, res) => {
+  const { sessions } = req.app.locals;
+  const { sId } = req.cookies;
+  sessions.clearSession(sId);
+  res.clearCookie('sId');
+  res.end();
+};
+
 module.exports = {
   isLoggedIn,
   getPoemsData,
@@ -76,4 +83,5 @@ module.exports = {
   getLikes,
   addComment,
   getComments,
+  logout,
 };

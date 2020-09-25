@@ -30,7 +30,7 @@ const processGithubOauth = function (req, res) {
       const { name, avatar_url, id } = data;
       res.cookie('sId', sessions.createSession(data.id));
       db.addPoet({ name, url: avatar_url }, id).then(
-        res.redirect('http://localhost:3000')
+        res.redirect(process.env.reactServer || '/')
       );
     });
   });
