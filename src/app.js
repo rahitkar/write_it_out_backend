@@ -2,7 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const { userRouter } = require('./userRouter');
 
-const { processGithubOauth, getUserId } = require('./handlers');
+const { processGithubOauth, getLoginLink, getUserId } = require('./handlers');
 
 const app = express();
 
@@ -16,6 +16,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/user', userRouter);
+
+app.get('/api/getLoginLink', getLoginLink);
 
 app.get('/api/getUserId', getUserId);
 

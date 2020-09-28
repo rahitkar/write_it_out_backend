@@ -36,6 +36,12 @@ const processGithubOauth = function (req, res) {
   });
 };
 
+const getLoginLink = function (req, res) {
+  res.json({
+    loginLink: `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`,
+  });
+};
+
 const getUserId = function (req, res) {
   const { sId } = req.cookies;
   const { sessions } = req.app.locals;
@@ -46,4 +52,4 @@ const getUserId = function (req, res) {
   res.json({ loggedInUserId: null });
 };
 
-module.exports = { processGithubOauth, getUserId };
+module.exports = { processGithubOauth, getLoginLink, getUserId };
