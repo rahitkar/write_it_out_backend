@@ -7,7 +7,7 @@ jobs:
       deploy:
         app: lets-write-it-out
         api_key:
-          secure: ODd3kyy6lg3H47kGACCI4aLTlDiVuqpJT/EchBzr+ww9UOoIfvdgrkzS+uZPhxMUIfh/B3llvB3OQxVg2Gs8zMZYytFsC7Lrt4IdNJjiuJWJnAPVZr045694KltYFqfyzOVukwL1T3zndfnb2K6IfjusDtqdJxc8fBRcjo4NPhcb+ZVYT+0FaGvCn6lFIJaS+eca0WiVeIWCoT3tjZfdMYlYzCQ9eG5AajHYl/WqAfKKwk29+xLN4hKxkTr7LDpnju2mbxc0DhZmiKhsDxiOOY8yfTMa7Jy8IYUbXT9/tTRO+twZdbgvO5JCADfLUQTEYubRT0rm1Rj+pg18dZdTchVCmn1Q8QynbAIeTK/n4EYTaGp3F9pU+hA49fKUS5DC1JJyDyTsxDIdBQk+6JiGcabvOBUEP/l7aGSwr5bXkGUgv8dJxBvbMtUJGr64TTxy15YcrKH/cMNDWAXrI3MxxX1S0klEe/Rwx/ryYfgu/lx3ZLhM4+uCrJKDTL2NrpH6P80POgU855wtlXAPvgWjh9CJVBxd2UycLesfaQxhrv3zLez2FquytD3vRuKSiztA+xj3DxAhQJW1oRSXSVaqESqz02iLQwlv73GnUsYq6bBeZW79uy0LbgZEQB6BPHyIz1pAscXzm9vMIrwsOhpC8F1ST2RHO4FTGj/m3oYmNVA=
+          secure: kUexLrtRwZQx3rTYwv+YP59zjcO6/to0KAhEBou0MdesqG76XZkecYobCS2KYTavA7aAcZ0NA7ZNaYQa4zqSirhX1HgW/PXb6TdtB7QpDQKf6xQExXW6jDE05e9A8R7uwq1ENm9LJICrQjy9ksAufm84NuB1s18rcFx9X7z5rS7y9KFvcsitvKkEPEXRepAtSei0DeBvetyDy5/CNVl/M3u+yIPagypd9jiFlhgCw5BYtchlNSksESAhw+5VFWIVnP6EfPrHXNmm+dP+TMyYGuoIeXFF8NWpw0Vp0mMGOCTvYIaEM6CzlbXv4bhswG2NjdbVfX3Yy9fvRr5Od+WjZs4rnsfR2WolkmQsB2mAb7ln0PyPzu3iNOwY6ZGESDWIY0mOa5Fx46FR0xIt6ewdSI8Sw4P+f6rfy88CDoMaIPA+5ySxWqX+56PjMcNdfaKEjAEcuhX85v/U3XNimtbStT8TqVId1pe/b5N0/ZdmJ8e8nGQRoeNtYYl8e1Oi1ptNHPUfNuDs4EUY51YmRT+rP/jnQfT7rOhefktbBrfBrEgBAttY6/+ultfkN9OoxqyzCsg1r9LKZ9mJHZiIbwso2tsMS8Axmdf0pBjqT9MhAOwAwb7zt9C68iJpZ5Amvamua2keDz7iv/lfOgEjZ7JVx0sIJfBdoXWU50h8maBMgVA=
         provider: heroku
         run: restart
         skip_cleanup: true
