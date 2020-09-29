@@ -23,6 +23,4 @@ app.get('/api/getUserId', getUserId);
 
 app.get('/user', processGithubOauth);
 
-app.get('/', (req, res) => res.sendFile(`${__dirname}/../build/index.html`));
-
 module.exports = { app };
