@@ -1,0 +1,13 @@
+language: node_js
+node_js: lts/*
+jobs:
+  include:
+    - stage: DEPLOY
+      script: './build.sh'
+      deploy:
+        app: lets-write-it-out
+        api_key:
+          secure: ODd3kyy6lg3H47kGACCI4aLTlDiVuqpJT/EchBzr+ww9UOoIfvdgrkzS+uZPhxMUIfh/B3llvB3OQxVg2Gs8zMZYytFsC7Lrt4IdNJjiuJWJnAPVZr045694KltYFqfyzOVukwL1T3zndfnb2K6IfjusDtqdJxc8fBRcjo4NPhcb+ZVYT+0FaGvCn6lFIJaS+eca0WiVeIWCoT3tjZfdMYlYzCQ9eG5AajHYl/WqAfKKwk29+xLN4hKxkTr7LDpnju2mbxc0DhZmiKhsDxiOOY8yfTMa7Jy8IYUbXT9/tTRO+twZdbgvO5JCADfLUQTEYubRT0rm1Rj+pg18dZdTchVCmn1Q8QynbAIeTK/n4EYTaGp3F9pU+hA49fKUS5DC1JJyDyTsxDIdBQk+6JiGcabvOBUEP/l7aGSwr5bXkGUgv8dJxBvbMtUJGr64TTxy15YcrKH/cMNDWAXrI3MxxX1S0klEe/Rwx/ryYfgu/lx3ZLhM4+uCrJKDTL2NrpH6P80POgU855wtlXAPvgWjh9CJVBxd2UycLesfaQxhrv3zLez2FquytD3vRuKSiztA+xj3DxAhQJW1oRSXSVaqESqz02iLQwlv73GnUsYq6bBeZW79uy0LbgZEQB6BPHyIz1pAscXzm9vMIrwsOhpC8F1ST2RHO4FTGj/m3oYmNVA=
+        provider: heroku
+        run: restart
+        skip_cleanup: true
