@@ -1,4 +1,4 @@
-const { app } = require('./src/app');
+const { app } = require('./app');
 
 const { Sessions } = require('./src/sessions');
 const Database = require('./src/Database');
