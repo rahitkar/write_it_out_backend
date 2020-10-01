@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { app } = require('../src/app');
+const { app } = require('../app');
 
 describe('/api/user/* ', () => {
   it('any request of "/api/user/" should redirect to localhost:3000 if no session is present', (done) => {
